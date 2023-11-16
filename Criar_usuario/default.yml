@@ -1,1 +1,36 @@
-/etc/hosts
+---
+
+- name: ADD novo usuário
+  hosts: ubuntu
+  become: yes
+  vars_prompt:
+    - name: username
+      prompt: "Qual o seu nome?"
+      private: false
+
+    - name: password
+      prompt: "Qual a sua senha?"
+      private: true
+      confirm: yes
+      encrypt:  "md5_crypt"
+
+    - name: shell
+      prompt: "Qual o seu shell"
+      private: false
+
+  tasks:
+    - name: Aprsentar o conteúdo das variáveis
+      ansible.builtin.debug:
+        msg: 
+          Nome: "{{ username }}"
+          Senha: "{{ password }}"
+          Shell: "{{ shell }}"
+
+    - name:
+      ansible.builtin.user:
+        name: "{{ username }}"
+        password: "{{ password }}"
+        shell: "{{ shell }}"
+        home: "/home/{{ username }}"
+
+...
