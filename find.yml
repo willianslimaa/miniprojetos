@@ -1,0 +1,14 @@
+- name: Find in Ansible
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+    - name: Find Files
+      ansible.builtin.find:
+        path: /etc
+        pattern: 'issue'
+      register: output
+
+    - name: Output Files
+      ansible.builtin.debug:
+        msg: "{{ output }}"

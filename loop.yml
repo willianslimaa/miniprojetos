@@ -1,0 +1,17 @@
+--- 
+
+- name: Loop
+  hosts: ubuntu
+
+  tasks:
+    - name: Inserir usuários loop
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: absent
+        groups:  "root"
+      loop:
+        - Maria
+        - Joana
+        - Bia
+...
+

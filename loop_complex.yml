@@ -1,0 +1,28 @@
+---
+
+- name: Loop Complexo
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+    - name: Inclusão de usuários no Linux
+      ansible.builtin.user:
+        name: "{{ item.user }}"
+        groups: root
+        comment: "{{ item.comment }}"
+        shell: "{{ item.shell }}"
+        state: absent
+      notify: Delete User
+
+      loop:
+        - { user: "Jhon", comment: "Ansible User", shell: "/bin/bash" }
+        - { user: "Alexander", comment: "Ansible User", shell: "/bin/bash" }
+        - { user: "Julia", comment: "Ansible User", shell: "/bin/bash"}
+
+  handlers:
+    - name: Delete User
+      ansible.builtin.file:
+        path: /home/Jhon
+        state: absent
+
+...

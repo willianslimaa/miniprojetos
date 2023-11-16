@@ -1,7 +1,7 @@
 ---
 
 - name: Deploy Barbearia
-  hosts: localhost
+  hosts: all
   become: yes
 
   tasks:
@@ -15,6 +15,12 @@
       ansible.builtin.apt:
         name: apache2
         state: latest
+
+    - name: Parar o NGINX
+      ansible.builtin.service:
+        name: nginx
+        state: stopped
+        enabled: no
 
     - name: Habilitar serviço
       ansible.builtin.service:

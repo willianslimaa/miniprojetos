@@ -1,0 +1,27 @@
+---
+
+- name: Condição WHEN
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Atualizar o SO
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Baixar packages
+      ansible.builtin.get_url:
+        url: https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb
+        dest: /tmp
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Instalar pacotes
+      ansible.builtin.apt:
+        deb: /tmp/jdk-17_linux-x64_bin.deb
+      when: ansible_distribution == "Ubuntu"
+
+...
+
