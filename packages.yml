@@ -1,0 +1,10 @@
+- packages:
+    - htop
+    - apache2
+    - vim
+    - net-tools
+    - nginx
+    - mpg321
+    - curl
+    - git
+    - mariadb-server
