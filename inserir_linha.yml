@@ -1,0 +1,13 @@
+---
+
+- name: Inserir linha no /etc/hosts
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+    - name: Inserir linha /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: '192.168.18.100 localhost'
+        state: present
+...

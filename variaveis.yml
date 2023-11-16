@@ -1,0 +1,41 @@
+---
+
+- name: Variáveis
+  hosts: ubuntu
+  become: yes
+  vars:
+    packages:
+      - htop
+      - vim
+      - apache2
+      - mariadb-server
+      - nginx
+      - net-tools
+    message: "Giropops Strigus Girus"
+
+  tasks:
+    - name: Atualizar SO | "{{ message }}"
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+    - name: Instalar pacotes
+      ansible.builtin.apt:
+        name: "{{ packages }}"
+        state: latest
+
+    - name: Enable service nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Enable service apache
+      ansible.builtin.service:
+        name: mysql
+        state: started
+        enabled: yes
+
+...      
+
