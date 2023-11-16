@@ -1,0 +1,32 @@
+---
+
+- name: Deploy Barbearia
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Atualizar SO
+      ansible.builtin.apt: 
+        name: "*"
+        state: latest
+        update_cache: yes
+
+    - name: Instalar Apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: latest
+
+    - name: Habilitar serviço
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Copiar o Projeto para /var/www/html
+      ansible.builtin.copy:
+        src: . 
+        dest: /var/www/html
+        owner: root
+        group: root
+
+...
